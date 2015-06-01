@@ -1,5 +1,18 @@
 {% block content %}
+	{% url 'detail' pk.id as the_url %}	
+
 	<p>{{ post.datetime}}</p>
 	<h2>{{ post.title}}</h2>
 	<p>{{ post.content}}</p>
+	
+	<form action="{{the_url}}" method="post">
+	{% csrf_token %}
+	{{ form }}
+	<input type="submit" value="Submit" />
+	</form>
+	
+	{% for comment in comment_list %}
+	<p> {{comment.autor}} <p>
+	<p> {{comment.message}} <p>
+	{% endfor %}
 {% endblock %}
