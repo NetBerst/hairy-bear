@@ -1,5 +1,5 @@
 {% block content %}
-	{% url 'detail' pk.id as the_url %}	
+	{% url 'detail' post.id as the_url %}	
 
 	<p>{{ post.datetime}}</p>
 	<h2>{{ post.title}}</h2>
@@ -7,7 +7,9 @@
 	
 	<form action="{{the_url}}" method="post">
 	{% csrf_token %}
-	{{ form }}
+	<ul>
+	{{ form.as_ul }}
+	</ul>
 	<input type="submit" value="Submit" />
 	</form>
 	
