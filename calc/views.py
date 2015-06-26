@@ -7,18 +7,17 @@ class ExpresForm(forms.Form):
 
 # Create your views here.
 def calculate(request):
-    
+
     if request.method == "POST":
         form = ExpresForm(request.POST)
         if form.is_valid():
             ans =  calculation(form.cleaned_data['artem'])
 
-
-            return HttpResponse(ans)
+            return HttpResponse("Ответ: %s " % ans)
 
     else:
         form = ExpresForm().as_p()
-    
+
     return render(request,'name.html',{'form':form})
 
 

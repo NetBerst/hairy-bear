@@ -1,20 +1,37 @@
-{% block content %}
-	{% url 'detail' post.id as the_url %}	
+	{% url 'detail' post.id as the_url %}
 
-	<p>{{ post.datetime}}</p>
+    <!-- Часть авторизации -->
+    {% if user.is_authenticated %}
+        <p>Привет! {{user.username}}</p>
+    {% else %}
+        <p>Здравствуйте! Если хотите писать статьи и оставлять комментарии нужно войти или зарегистрироваться </p>
+        <form action="{% url 'django.contrib.auth.views.login' %}" method="post">
+ 	    {% csrf_token %}
+        {{ authForm }}
+        <input type="submit" value="Войти">
+        </form>
+    {% endif %}
+    <!--Часть с постом -->
+ 	<p>{{ post.datetime}}</p>
 	<h2>{{ post.title}}</h2>
-	<p>{{ post.content}}</p>
-	
-	<form action="{{the_url}}" method="post">
-	{% csrf_token %}
+	<p>{{ post.content|safe}}</p>
+
+    <!-- Часть с формой для комментариев -->
+    {% if user.is_authenticated %}
+    <form action="{{the_url}}" method="post">
+    {% csrf_token %}
 	<ul>
 	{{ form.as_ul }}
 	</ul>
 	<input type="submit" value="Submit" />
 	</form>
-	
+	{% else %}
+	    <p> Зарегестрируйтесь, что бы оставить комментарий </p>
+	{% endif %}
+
+    <!-- Список комментриев -->
 	{% for comment in comment_list %}
 	<p> {{comment.autor}} <p>
 	<p> {{comment.message}} <p>
 	{% endfor %}
-{% endblock %}
+
