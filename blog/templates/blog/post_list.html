@@ -1,11 +1,19 @@
-{% block content %}
+    {% if user.is_authenticated %}
+        <p>Привет! {{user.username}}</p>
+    {% else %}
+        <p>Здравствуйте! Если хотите писать статьи и оставлять комментарии нужно войти или зарегистрироваться </p>
+        <form action="{% url 'django.contrib.auth.views.login' %}" method="post">
+ 	    {% csrf_token %}
+        {{ authForm }}
+        <input type="submit" value="Войти">
+        </form>
+    {% endif %}
+
     {% csrf_token %}
     {% for post in object_list %}
         <p>{{ post.datetime }}</p>
         <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-        <p>{{ post.content }}</p>
+        <p>{{ post.content|safe }}</p>
     {% empty %}
     <p>Нет постов</p>
     {% endfor %}
-
-{% endblock %}
