@@ -21,7 +21,7 @@ from blog import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^calc/', include(calc_urls)),
-    url(r'^blog/', include(blog_urls)),
+    url(r'^calc/', include(calc_urls, namespace = "calculate")),
+    url(r'^blog/', include(blog_urls,namespace = "blog")),
     url(r'^', views.list_of_page)
 ]
