@@ -1,9 +1,0 @@
-{% extends "blog/index.html" %}
-{% block content %}
-Отдельный вход
-<form action="/login/" method="post">
-    {% csrf_token %}
-    {{form}}
-<input type="submit" volume="Пройти">
-</form>
-{% endblock %}
