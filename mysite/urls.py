@@ -17,11 +17,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from calc import urls as calc_urls
 from blog import urls as blog_urls
-from blog import views
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^calc/', include(calc_urls, namespace = "calculate")),
     url(r'^blog/', include(blog_urls,namespace = "blog")),
-    url(r'^', views.list_of_page)
+    url(r'^', include(blog_urls,namespace = "blog"))
 ]
