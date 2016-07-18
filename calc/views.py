@@ -1,24 +1,21 @@
 from django.shortcuts import render
-from django import forms
 from django.http import HttpResponse
-
-class ExpresForm(forms.Form):
-    artem = forms.CharField(label="Ввидите ваше выражение",max_length=20,widget=forms.Textarea)
+import json
 
 # Create your views here.
 def calculate(request):
 
     if request.method == "POST":
-        form = ExpresForm(request.POST)
-        if form.is_valid():
-            ans =  calculation(form.cleaned_data['artem'])
-
-            return HttpResponse("Ответ: %s " % ans)
-
+        value = request.POST.get('value_exp')
+        ans =  calculation(value)
+        response_data = {}
+        response_data['val_exp'] = ans
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="aplication/json"
+        )
     else:
-        form = ExpresForm().as_p()
-
-    return render(request,'name.html',{'form':form})
+        return render(request,'calc.html')
 
 
 def calculation(expr):

@@ -36,23 +36,20 @@
           <a class="blog-nav-item active" href="{% url 'blog:list' %}">Home</a>
           <a class="blog-nav-item" href="{% url 'calculate:calc' %}">Calculator</a>
 
-          <!--<a class="blog-nav-item" href="#">Press</a>
-          <a class="blog-nav-item" href="#">New hires</a>
-          <a class="blog-nav-item" href="#">About</a>-->
-        </nav>
-      </div>
-      <div class="login-field">
-           {% if user.is_authenticated %}
-        <p>Привет! {{user.username}}</p>
-        <a href= "{% url 'blog:logout_p'  %}">Выйти</a>
-    {% else %}
-        <p>Здравствуйте! Если хотите писать статьи и оставлять комментарии нужно войти или зарегистрироваться </p>
-        <form action= "{% url 'blog:login_p'  %}" method="post">
+        {% if user.is_authenticated %}
+            <p class="blog-nav-item">Привет! {{user.username}}</p>
+            <a class="blog-nav-item" href= "{% url 'blog:logout_p'  %}">Выйти</a>
+        {% else %}
+            <form class="blog-nav-item" action= "{% url 'blog:login_p'  %}" method="post">
  	    {% csrf_token %}
         {{ authForm }}
         <input type="submit" value="Войти">
         </form>
-    {% endif %}
+        {% endif %}
+          <!--<a class="blog-nav-item" href="#">Press</a>
+          <a class="blog-nav-item" href="#">New hires</a>
+          <a class="blog-nav-item" href="#">About</a>-->
+        </nav>
       </div>
     </div>
 
@@ -66,7 +63,9 @@
       <div class="row">
 
         <div class="col-sm-8 blog-main">
+
             {% block content %}
+
             {% csrf_token %}
             {% for post in object_list %}
           <div class="blog-post">
@@ -77,7 +76,8 @@
             {% empty %}
              <p>Нет постов</p>
             {% endfor %}
-            {% endblock %}}
+
+
 
 
           <nav>
@@ -86,6 +86,7 @@
               <li><a href="#">Next</a></li>
             </ul>
           </nav>
+            {% endblock %}}
 
         </div><!-- /.blog-main -->
 
@@ -98,7 +99,7 @@
             <h4>Elsewhere</h4>
             <ol class="list-unstyled">
                 <li><a href="https://github.com/NetBerst">GitHub</a></li>
-                <li><a href="vk.com/artemsurov">VKontakte</a></li>
+                <li><a href="https://vk.com/artemsurov">VKontakte</a></li>
             </ol>
           </div>
         </div><!-- /.blog-sidebar -->

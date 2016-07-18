@@ -40,7 +40,7 @@ def post_detail_func_view(request,pk):
             new_cf = cf.save(commit=False)
             new_cf.post = postForComment
             new_cf.save()
-            return HttpResponseRedirect(reverse('detail',args=pk))
+            return HttpResponseRedirect(reverse('blog:detail',args=pk))
     else:
         context['form']=CommentForm()
 

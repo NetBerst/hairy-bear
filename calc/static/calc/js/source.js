@@ -55,23 +55,23 @@ $.ajaxSetup({
 
 function senData(){
     console.log("Result value " + result.value)
-    console.log("send data is working!") // sanity check
+    console.log("send data is working!")
     $.ajax({
-        url : "count/", // the endpoint
+        url : "/calc/", // the endpoint
         type : "POST", // http method
-        data : { value_exp :  result.value }, // data sent with the post request
+        data : { value_exp :  result.value },
 
         // handle a successful response
         success : function(json) {
             result.value = json.val_exp
-            console.log(json); // log the returned json to the console
-            console.log("success"); // another sanity check
+            console.log(json);
+            console.log("success");
         },
 
         // handle a non-successful response
         error : function(xhr,errmsg) {
-            $('#results').html("<div  data-alert>Oops! We have encountered an error: "+errmsg+"</div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            $('#results').html("<div  data-alert>Oops! We have encountered an error: "+errmsg+"</div>");
+            console.log(xhr.status + ": " + xhr.responseText);
         }
     });
 }

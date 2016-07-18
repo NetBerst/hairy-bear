@@ -1,21 +1,13 @@
+    {% extends "blog/post_list.html" %}
 	{% url 'detail' post.id as the_url %}
 
-    <!-- Часть авторизации -->
-    {% if user.is_authenticated %}
-        <p>Привет! {{user.username}}</p>
-    {% else %}
-        <p>Здравствуйте! Если хотите писать статьи и оставлять комментарии нужно войти или зарегистрироваться </p>
-        <form action= "{% url 'blog:login_p'  %}" method="post">
- 	    {% csrf_token %}
-        {{ authForm }}
-        <input type="submit" value="Войти">
-        </form>
-    {% endif %}
+    {% block content %}
     <!--Часть с постом -->
  	<p>{{ post.datetime}}</p>
 	<h2>{{ post.title}}</h2>
 	<p>{{ post.content|safe}}</p>
 
+    <hr>
     <!-- Часть с формой для комментариев -->
     {% if user.is_authenticated %}
     <form action="{{the_url}}" method="post">
@@ -31,7 +23,12 @@
 
     <!-- Список комментриев -->
 	{% for comment in comment_list %}
+	    <hr>
+	<blockquote>
 	<p> {{comment.autor}} <p>
 	<p> {{comment.message}} <p>
+	</blockquote>
+	    <hr>
 	{% endfor %}
 
+    {% endblock %}
