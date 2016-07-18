@@ -5,7 +5,7 @@
         <p>Привет! {{user.username}}</p>
     {% else %}
         <p>Здравствуйте! Если хотите писать статьи и оставлять комментарии нужно войти или зарегистрироваться </p>
-        <form action= "{% url 'blog:login_p'  %}" method="post">
+        <form action="{% url 'django.contrib.auth.views.login' %}" method="post">
  	    {% csrf_token %}
         {{ authForm }}
         <input type="submit" value="Войти">
