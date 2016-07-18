@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="ru">
   <head>
     <meta charset="utf-8">
@@ -11,7 +12,6 @@
     <link rel="icon" href="/favicon.ico">
 
     <title>Blog by A.Surov </title>
-    {% load staticfiles %}
     <!-- Bootstrap core CSS -->
     <link href="{% static 'blog/css/bootstrap.min.css' %}"  rel="stylesheet">
 
@@ -35,17 +35,18 @@
         <nav class="blog-nav">
           <a class="blog-nav-item active" href="{% url 'blog:list' %}">Home</a>
           <a class="blog-nav-item" href="{% url 'calculate:calc' %}">Calculator</a>
-          <a class="blog-nav-item" href="{% url 'blog:reg' %}">Calculator</a>
         {% if user.is_authenticated %}
             <p class="blog-nav-item">Привет! {{user.username}}</p>
             <a class="blog-nav-item" href= "{% url 'blog:logout_p'  %}">Выйти</a>
         {% else %}
             <form class="blog-nav-item" action= "{% url 'blog:login_p'  %}" method="post">
- 	    {% csrf_token %}
-        {{ authForm }}
-        <input type="submit" value="Войти">
-        </form>
+ 	        {% csrf_token %}
+            {{ authForm }}
+            <input type="submit" value="Войти">
+            </form>
+             <a class="blog-nav-item" href="{% url 'blog:reg' %}">Регистрация</a>
         {% endif %}
+
           <!--<a class="blog-nav-item" href="#">Press</a>
           <a class="blog-nav-item" href="#">New hires</a>
           <a class="blog-nav-item" href="#">About</a>-->
@@ -57,7 +58,7 @@
 
       <div class="blog-header">
         <h1 class="blog-title">The  Blog</h1>
-        <p class="lead blog-description">The official example blog by my name.</p>
+        <p class="lead blog-description">Официальный пример блога от меня)</p>
       </div>
 
       <div class="row">
@@ -66,7 +67,7 @@
 
             {% block content %}
 
-            {% csrf_token %}
+
             {% for post in object_list %}
           <div class="blog-post">
             <h2 class="blog-post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
@@ -92,8 +93,8 @@
 
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
           <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+            <h4>Обо мне</h4>
+                <p></p>Маленький блог от амбициозного, начинающего программиста, готового работать сколько угодно, когда угодно за почти любые деньги.:)</p>
           </div>
           <div class="sidebar-module">
             <h4>Elsewhere</h4>
