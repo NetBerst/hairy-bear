@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if registered %}
+        <strong>Спасибо за регистрацию</strong>
+        <a href="/">Return to the homepage.</a><br />
+        {% else %}
+
+        <form id="user_form" method="post" action="{% url 'blog:reg' %}"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+
+            <input type="submit" name="submit" value="OK" />
+        </form>
+        {% endif %}
+</body>
+</html>
